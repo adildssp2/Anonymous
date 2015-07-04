@@ -29,9 +29,10 @@ class FeatureExtractor(object):
         #data_encoded = data_encoded.join(pd.get_dummies(data_encoded['day'], prefix='d'))
         data_encoded = data_encoded.join(pd.get_dummies(data_encoded['weekday'], prefix='wd'))
         data_encoded = data_encoded.join(pd.get_dummies(data_encoded['week'], prefix='w'))
-        
-        data_oil = pd.read_csv("oil.csv",sep=';', decimal=',')
-        data_holidays = pd.read_csv("data_holidays_2.csv")
+        path = os.path.dirname(__file__)
+        data_oil = pd.read_csv(os.path.join(path, "oil.csv"),sep=';', decimal=',')
+        path = os.path.dirname(__file__)
+        data_holidays = pd.read_csv(os.path.join(path,"data_holidays_2.csv"))
         
         X_Oil = data_oil[['DateOfDeparture','Price']]
         X_holidays = data_holidays[['DateOfDeparture','Xmas','Xmas-1','NYD','NYD-1','Ind','Thg','Thg+1','Lab','Mem']]
