@@ -30,6 +30,22 @@ class FeatureExtractor(object):
         data_encoded = data_encoded.join(pd.get_dummies(data_encoded['weekday'], prefix='wd'))
         data_encoded = data_encoded.join(pd.get_dummies(data_encoded['week'], prefix='w'))
         
+        data_oil = pd.read_csv("oil.csv",sep=';', decimal=',')
+        data_holidays = pd.read_csv("data_holidays_2.csv")
+        
+        X_Oil = data_oil[['DateOfDeparture','Price']]
+        X_holidays = data_holidays[['DateOfDeparture','Xmas','Xmas-1','NYD','NYD-1','Ind','Thg','Thg+1','Lab','Mem']]
+        
+        X_Oil = X_Oil.set_index(['DateOfDeparture'])
+        X_holidays = X_holidays.set_index(['DateOfDeparture'])
+        X_Oil = X_Oil.join(X_holidays).reset_index()   
+        
+        X_Temprorary = X_Oil[['DateOfDeparture','Price','Xmas','Xmas-1','NYD','NYD-1','Ind','Thg','Thg+1','Lab','Mem']]
+        
+        data_encoded = data_encoded.set_index(['DateOfDeparture'])
+        X_Temprorary = X_Temprorary.set_index(['DateOfDeparture'])
+        data_encoded = data_encoded.join(X_Temprorary).reset_index()   
+        
         data_encoded = data_encoded.drop(['DateOfDeparture'], axis=1)
         
         X_array = np.array(data_encoded)
