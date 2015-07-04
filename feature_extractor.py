@@ -42,12 +42,9 @@ class FeatureExtractor(object):
         X_holidays = X_holidays.set_index(['DateOfDeparture'])
         X_Oil = X_Oil.join(X_holidays).reset_index()   
         
-        X_Temprorary = X_Oil[['DateOfDeparture','Price','Xmas','Xmas-1','NYD','NYD-1','Ind','Thg','Thg+1','Lab','Mem']]
+        X_Oil['DateOfDeparture'] = pd.to_datetime(X_Temporary['DateOfDeparture'])
         
-        data_encoded = data_encoded.set_index(['DateOfDeparture'])
-        X_Temprorary = X_Temprorary.set_index(['DateOfDeparture'])
-        data_encoded = data_encoded.join(X_Temprorary).reset_index()   
-        
+        data_encoded = data_encoded.merge(X_Oil, how='left', left_on=['DateOfDeparture'], right_on=['DateOfDeparture'], sort=False)
         data_encoded = data_encoded.drop(['index'], axis=1)
         
         X_array = np.array(data_encoded)
