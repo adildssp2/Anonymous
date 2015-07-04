@@ -48,7 +48,7 @@ class FeatureExtractor(object):
         X_Temprorary = X_Temprorary.set_index(['DateOfDeparture'])
         data_encoded = data_encoded.join(X_Temprorary).reset_index()   
         
-        data_encoded = data_encoded.drop(['DateOfDeparture'], axis=1)
+        data_encoded = data_encoded.drop(['index'], axis=1)
         
         X_array = np.array(data_encoded)
         
