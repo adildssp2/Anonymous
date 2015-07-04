@@ -36,13 +36,13 @@ class FeatureExtractor(object):
         data_holidays = pd.read_csv(os.path.join(path,"data_holidays_2.csv"))
         
         X_Oil = data_oil[['DateOfDeparture','Price']]
-        X_holidays = data_holidays[['DateOfDeparture','Xmas','Xmas-1','NYD','NYD-1','Ind','Thg','Thg+1','Lab','Mem']]
+#        X_holidays = data_holidays[['DateOfDeparture','Xmas','Xmas-1','NYD','NYD-1','Ind','Thg','Thg+1','Lab','Mem']]
         
         X_Oil = X_Oil.set_index(['DateOfDeparture'])
-        X_holidays = X_holidays.set_index(['DateOfDeparture'])
-        X_Oil = X_Oil.join(X_holidays).reset_index()   
+#        X_holidays = X_holidays.set_index(['DateOfDeparture'])
+#        X_Oil = X_Oil.join(X_holidays).reset_index()   
         
-#        X_Oil['DateOfDeparture'] = pd.to_datetime(X_Oil['DateOfDeparture'])
+        X_Oil['DateOfDeparture'] = pd.to_datetime(X_Oil['DateOfDeparture'])
         
         data_encoded = data_encoded.merge(X_Oil, how='left', left_on=['DateOfDeparture'], right_on=['DateOfDeparture'], sort=False)
         data_encoded = data_encoded.drop(['DateOfDeparture'], axis=1)
