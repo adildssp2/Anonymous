@@ -38,7 +38,7 @@ class FeatureExtractor(object):
         X_Oil = data_oil[['DateOfDeparture','Price']]
 #        X_holidays = data_holidays[['DateOfDeparture','Xmas','Xmas-1','NYD','NYD-1','Ind','Thg','Thg+1','Lab','Mem']]
         
-        X_Oil = X_Oil.set_index(['DateOfDeparture'])
+        #X_Oil = X_Oil.set_index(['DateOfDeparture'])
 #        X_holidays = X_holidays.set_index(['DateOfDeparture'])
 #        X_Oil = X_Oil.join(X_holidays).reset_index()   
         
