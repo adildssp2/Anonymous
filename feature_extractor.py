@@ -45,7 +45,7 @@ class FeatureExtractor(object):
         X_Oil['DateOfDeparture'] = pd.to_datetime(X_Oil['DateOfDeparture'])
         
         data_encoded = data_encoded.merge(X_Oil, how='left', left_on=['DateOfDeparture'], right_on=['DateOfDeparture'], sort=False)
-        data_encoded = data_encoded.drop(['index'], axis=1)
+        data_encoded = data_encoded.drop(['DateOfDeparture'], axis=1)
         
         X_array = np.array(data_encoded)
         
